@@ -36,12 +36,12 @@ RUN apt-get update && docker-php-ext-install -j$(nproc) \
         posix
 
 RUN apt-get update && apt-get install -y libssl-dev \
-        && cd /tmp && curl -SL 'https://github.com/mongodb/mongo-php-driver/releases/download/${EXT_MONGO_VERSION}/mongodb-${EXT_MONGO_VERSION}.tgz' | tar xzf - && cd mongodb-${EXT_MONGO_VERSION} \
+        && cd /tmp && curl -SL "https://github.com/mongodb/mongo-php-driver/releases/download/${EXT_MONGO_VERSION}/mongodb-${EXT_MONGO_VERSION}.tgz" | tar xzf - && cd mongodb-${EXT_MONGO_VERSION} \
         && phpize && ./configure --enable-mongodb && make -j$(nproc) && make install \
         && docker-php-ext-enable mongodb
 COPY ./config/mongodb.ini /usr/local/etc/php/conf.d/mongodb.ini
 
-RUN cd /tmp && curl -SL 'https://github.com/xdebug/xdebug/archive/XDEBUG_${EXT_XDEBUG_VERSION}.tar.gz' | tar xzf - && cd xdebug-XDEBUG_${EXT_XDEBUG_VERSION} \
+RUN cd /tmp && curl -SL "https://github.com/xdebug/xdebug/archive/XDEBUG_${EXT_XDEBUG_VERSION}.tar.gz" | tar xzf - && cd xdebug-XDEBUG_${EXT_XDEBUG_VERSION} \
         && phpize && ./configure --enable-xdebug && make -j$(nproc) && make install \
         && docker-php-ext-enable xdebug
 COPY ./config/xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
