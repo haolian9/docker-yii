@@ -2,6 +2,7 @@ FROM php:7.0-fpm
 
 ENV EXT_MONGO_VERSION 1.3.2
 ENV EXT_XDEBUG_VERSION 2_5_5
+ENV EXT_YAC_VERSION 2.0.2
 
 COPY sources.list /etc/apt/sources.list
 
@@ -44,6 +45,10 @@ RUN cd /tmp && curl -SL "https://github.com/xdebug/xdebug/archive/XDEBUG_${EXT_X
         && phpize && ./configure --enable-xdebug && make -j$(nproc) && make install
 COPY ./config/xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
 expose 9000
+
+RUN cd /tmp && curl -SL "https://github.com/laruence/yac/archive/yac-${EXT_YAC_VERSION}.tar.gz" | tar xzf - && cd yac-yac-${EXT_YAC_VERSION} \
+        && phpize && ./configure --enable-yac && make -j$(nproc) && make install \
+        && docker-php-ext-enable yac
 
 copy ./config/www.conf /usr/local/etc/php-fpm.d/www.conf
 
