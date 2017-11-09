@@ -61,3 +61,6 @@ RUN docker-php-ext-install -j$(nproc) zip
 RUN rm -rf /tmp/*
 
 ENTRYPOINT ["docker-entrypoint.sh"]
+
+RUN apt-get update && apt-get install -y tcpdump
+
