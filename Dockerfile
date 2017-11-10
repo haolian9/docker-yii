@@ -54,13 +54,9 @@ copy ./config/www.conf /usr/local/etc/php-fpm.d/www.conf
 
 RUN mkdir -p /var/log/php-fpm
 
-COPY ./docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
-
 RUN docker-php-ext-install -j$(nproc) zip
 
 RUN rm -rf /tmp/*
-
-ENTRYPOINT ["docker-entrypoint.sh"]
 
 RUN apt-get update && apt-get install -y tcpdump
 
