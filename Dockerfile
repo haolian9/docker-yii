@@ -60,5 +60,6 @@ RUN rm -rf /tmp/*
 
 RUN apt-get update && apt-get install -y tcpdump
 
+# see https://stackoverflow.com/a/41648500/5968225
 ENV LC_ALL C.UTF-8
 ENV LANG C.UTF-8
