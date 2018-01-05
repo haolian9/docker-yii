@@ -44,7 +44,6 @@ RUN apt-get update && apt-get install -y libssl-dev \
 RUN cd /tmp && curl -SL "https://github.com/xdebug/xdebug/archive/XDEBUG_${EXT_XDEBUG_VERSION}.tar.gz" | tar xzf - && cd xdebug-XDEBUG_${EXT_XDEBUG_VERSION} \
         && phpize && ./configure --enable-xdebug && make -j$(nproc) && make install
 COPY ./config/xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
-expose 9000
 
 RUN cd /tmp && curl -SL "https://github.com/laruence/yac/archive/yac-${EXT_YAC_VERSION}.tar.gz" | tar xzf - && cd yac-yac-${EXT_YAC_VERSION} \
         && phpize && ./configure --enable-yac && make -j$(nproc) && make install \
